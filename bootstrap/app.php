@@ -58,12 +58,19 @@ $app->singleton(
 */
 
 $app->middleware([
+    Illuminate\Session\Middleware\StartSession::class,
     App\Http\Middleware\VerifyCsrfToken::class
 ]);
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
 ]);
+
+$app->configure('session');
+
+$app->bind(Illuminate\Session\SessionManager::class, function ($app) {
+    return $app->make('session');
+});
 
 /*
 |--------------------------------------------------------------------------
