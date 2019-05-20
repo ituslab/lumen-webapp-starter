@@ -29,8 +29,9 @@
         ]
     },
     "scripts": {
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        "post-install-cmd": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php -r \"require 'vendor/autoload.php'; !file_exists('.env') || file_put_contents('.env', str_replace('APP_KEY=', 'APP_KEY='.str_random(32), file_get_contents('.env.example')));\""
         ]
     },
     "config": {
